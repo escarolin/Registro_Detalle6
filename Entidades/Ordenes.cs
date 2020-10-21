@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Registro_Detalle6.Entidades{
   public class Ordenes
-  {
+  {     [Key]
        public int OrdenId { get; set; }
 
        public DateTime Fecha { get; set; }=DateTime.Now;

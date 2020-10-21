@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Registro_Detalle6.UI.Registros;
 
 namespace Registro_Detalle6
 {
@@ -23,6 +24,17 @@ namespace Registro_Detalle6
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private void rSuplidoresButton_Click(object sender, RoutedEventArgs e)
+        {
+            rSuplidores rSuplidores = new rSuplidores();
+            rSuplidores.Show();
+
+        }
+        private void rProductosButton_Click(object sender, RoutedEventArgs e)
+        {
+            rProductos rProductos = new rProductos();
+            rProductos.Show();
         }
     }
 }
