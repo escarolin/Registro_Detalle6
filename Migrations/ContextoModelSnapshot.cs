@@ -54,6 +54,9 @@ namespace Registro_Detalle6.Migrations
                     b.Property<int>("ProductoId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("SuplidorId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrdenId");
@@ -69,10 +72,10 @@ namespace Registro_Detalle6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Costop")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Costop")
+                        .HasColumnType("REAL");
 
-                    b.Property<string>("Decripcion")
+                    b.Property<string>("Descripcion")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Inventario")
@@ -81,6 +84,29 @@ namespace Registro_Detalle6.Migrations
                     b.HasKey("ProductoId");
 
                     b.ToTable("Productos");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductoId = 1,
+                            Costop = 55.5,
+                            Descripcion = "Manzana",
+                            Inventario = 57.0
+                        },
+                        new
+                        {
+                            ProductoId = 2,
+                            Costop = 30.949999999999999,
+                            Descripcion = "Cerveza",
+                            Inventario = 53.0
+                        },
+                        new
+                        {
+                            ProductoId = 3,
+                            Costop = 45.0,
+                            Descripcion = "Leche",
+                            Inventario = 30.0
+                        });
                 });
 
             modelBuilder.Entity("Registro_Detalle6.Entidades.Suplidores", b =>
@@ -95,6 +121,23 @@ namespace Registro_Detalle6.Migrations
                     b.HasKey("SuplidorId");
 
                     b.ToTable("Suplidores");
+
+                    b.HasData(
+                        new
+                        {
+                            SuplidorId = 1,
+                            Nombres = "PorVnir"
+                        },
+                        new
+                        {
+                            SuplidorId = 2,
+                            Nombres = "Presidente"
+                        },
+                        new
+                        {
+                            SuplidorId = 3,
+                            Nombres = "Nestle"
+                        });
                 });
 
             modelBuilder.Entity("Registro_Detalle6.Entidades.OrdenesDetalle", b =>
@@ -105,8 +148,8 @@ namespace Registro_Detalle6.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Registro_Detalle6.Entidades.Productos", null)
-                        .WithMany("Detalle")
+                    b.HasOne("Registro_Detalle6.Entidades.Productos", "Producto")
+                        .WithMany()
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

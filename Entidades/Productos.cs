@@ -10,12 +10,11 @@ namespace Registro_Detalle6.Entidades
     public class Productos
     {    [Key]
         public int ProductoId { get; set; }
-        public string  Decripcion { get; set; }
-        public decimal Costop { get; set; }
+        public string  Descripcion { get; set; }
+        public double Costop { get; set; }
         public double Inventario { get; set; }
 
-        [ForeignKey("ProductoId")]
-        public virtual List<OrdenesDetalle> Detalle { get; set; } = new List<OrdenesDetalle>();
+      
 
     }
 }

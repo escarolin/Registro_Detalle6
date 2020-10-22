@@ -10,22 +10,33 @@ using Registro_Detalle6.Entidades;
 namespace Registro_Detalle6.BLL
 {
     public class OrdenesBLL
-    {
-        //=====================================================[ GUARDAR ]=====================================================
+    {  //—————————————————————————————————————————————————————[ GUARDAR ]—————————————————————————————————————————————————————
         public static bool Guardar(Ordenes ordenes)
         {
+            bool paso;
+
             if (!Existe(ordenes.OrdenId))
-                return Insertar(ordenes);
+                paso = Insertar(ordenes);
             else
-                return Modificar(ordenes);
+                paso = Modificar(ordenes);
+
+            return paso;
         }
-        //=====================================================[ INSERTAR ]=====================================================
-        private static bool Insertar( Ordenes ordenes)
+        //—————————————————————————————————————————————————————[ INSERTAR ]—————————————————————————————————————————————————————
+        public static bool Insertar(Ordenes ordenes)
         {
-            bool paso = false;
             Contexto contexto = new Contexto();
+            bool paso = false;
+
             try
             {
+                //—————————————————————[ Arregla el error de la linea 75 de rPedidos.xaml.cs ]———————————————————————
+                foreach (var item in ordenes.Detalle)
+                {
+                    contexto.Entry(item.Producto).State = EntityState.Modified;
+                }
+                //———————————————————————————————————————————————————————————————————————————————————————————————————
+
                 contexto.Ordenes.Add(ordenes);
                 paso = contexto.SaveChanges() > 0;
             }
@@ -37,23 +48,23 @@ namespace Registro_Detalle6.BLL
             {
                 contexto.Dispose();
             }
+
             return paso;
         }
-        //=====================================================[ MODIFICAR ]=====================================================
+        //—————————————————————————————————————————————————————[ MODIFICAR ]—————————————————————————————————————————————————————
         public static bool Modificar(Ordenes ordenes)
         {
-            bool paso = false;
             Contexto contexto = new Contexto();
+            bool paso = false;
+
             try
             {
-                //-------------------------------------------[ REGISTRO DETALLADO ]-------------------------------------------------
-                contexto.Database.ExecuteSqlRaw($"Delete FROM ordenesDetalle Where MoraId={ordenes.OrdenId}");
+                contexto.Database.ExecuteSqlRaw($"DELETE FROM OrdenesDetalle WHERE OrdenId={ordenes.OrdenId}");
 
                 foreach (var item in ordenes.Detalle)
                 {
                     contexto.Entry(item).State = EntityState.Added;
                 }
-                //------------------------------------------------------------------------------------------------------------------
 
                 contexto.Entry(ordenes).State = EntityState.Modified;
                 paso = contexto.SaveChanges() > 0;
@@ -66,19 +77,20 @@ namespace Registro_Detalle6.BLL
             {
                 contexto.Dispose();
             }
+
             return paso;
         }
-        //=====================================================[ ELIMINAR ]=====================================================
+        //—————————————————————————————————————————————————————[ ELIMINAR ]—————————————————————————————————————————————————————
         public static bool Eliminar(int id)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
-                var ordenes = contexto.Ordenes.Find(id);
-                if (ordenes != null)
+                var devolucion = OrdenesBLL.Buscar(id);
+                if (devolucion != null)
                 {
-                    contexto.Ordenes.Remove(ordenes);
+                    contexto.Ordenes.Remove(devolucion);
                     paso = contexto.SaveChanges() > 0;
                 }
             }
@@ -90,40 +102,15 @@ namespace Registro_Detalle6.BLL
             {
                 contexto.Dispose();
             }
+
             return paso;
         }
-        //=====================================================[ BUSCAR ]=====================================================
-        public static Ordenes Buscar(int id)
-        {
-            //-------------------[ REGISTRO DETALLADO ] -------------------
-            Ordenes ordenes = new Ordenes();
-            //-------------------------------------------------------------
-            Contexto contexto = new Contexto();
-            //ordenes ordenes;
-            try
-            {
-                //-------------------[ REGISTRO DETALLADO ] -------------------
-                ordenes = contexto.Ordenes.Include(x => x.Detalle)
-                    .Where(x => x.OrdenId == id)
-                    .SingleOrDefault();
-                //-------------------------------------------------------------
-                //ordenes = contexto.ordenes.Find(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                contexto.Dispose();
-            }
-            return ordenes;
-        }
-        //=====================================================[ GET LIST ]===================================================== 
+        //—————————————————————————————————————————————————————[ GETLIST ]—————————————————————————————————————————————————————
         public static List<Ordenes> GetList(Expression<Func<Ordenes, bool>> criterio)
         {
             List<Ordenes> lista = new List<Ordenes>();
             Contexto contexto = new Contexto();
+
             try
             {
                 lista = contexto.Ordenes.Where(criterio).ToList();
@@ -136,17 +123,18 @@ namespace Registro_Detalle6.BLL
             {
                 contexto.Dispose();
             }
+
             return lista;
         }
-        //=====================================================[ EXISTE ]===================================================== 
+        //—————————————————————————————————————————————————————[ EXISTE ]—————————————————————————————————————————————————————
         public static bool Existe(int id)
         {
-            Contexto contexto = new Contexto();
             bool encontrado = false;
+            Contexto contexto = new Contexto();
+
             try
             {
-
-                encontrado = contexto.Ordenes.Any(d => d.OrdenId == id);
+                encontrado = contexto.Ordenes.Any(o => o.OrdenId == id);
             }
             catch (Exception)
             {
@@ -156,7 +144,33 @@ namespace Registro_Detalle6.BLL
             {
                 contexto.Dispose();
             }
+
             return encontrado;
+        }
+        //—————————————————————————————————————————————————————[ BUSCAR ]————————————————————————————————————————————————————
+        public static Ordenes Buscar(int id)
+        {
+            Ordenes ordenes = new Ordenes();
+            Contexto contexto = new Contexto();
+
+            try
+            {
+                ordenes = contexto.Ordenes
+                    .Where(d => d.OrdenId == id)
+                    .Include(d => d.Detalle)
+                    .ThenInclude(p => p.Producto)
+                    .SingleOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                contexto.Dispose();
+            }
+
+            return ordenes;
         }
     }
 }

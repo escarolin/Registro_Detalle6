@@ -158,7 +158,7 @@ namespace Registro_Detalle6.BLL
             return lista;
         }
 
-        public static List<Suplidores> Getsuplidores()
+        public static List<Suplidores> GetSuplidores()
         {
             List<Suplidores> lista = new List<Suplidores>();
             Contexto contexto = new Contexto();

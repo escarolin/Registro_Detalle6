@@ -156,7 +156,7 @@ namespace Registro_Detalle6.BLL
             return lista;
         }
 
-        public static List<Productos> Getproductos()
+        public static List<Productos> GetProductos()
         {
             List<Productos> lista = new List<Productos>();
             Contexto contexto = new Contexto();

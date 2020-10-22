@@ -7,23 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-<StackPanel>
-            <Menu Height="25" FontSize="16">
+        <StackPanel>
+            <!--——————————————————————————————————————————————[ MENU ITEMS ]——————————————————————————————————————————————-->
+            <Menu Height="24" FontSize="15">
                 <MenuItem Header="Registros">
-                    <MenuItem x:Name="rSuplidoresMenuItem" Header="Registro de Suplidores" Click="rSuplidoresButton_Click"></MenuItem>
-                    <MenuItem x:Name="rProductosMenuItem" Header="Registro de Productos" Click="rProductosButton_Click"></MenuItem>
-                    
+                    <MenuItem x:Name="rPedidosMenuItem" Click="rPedidosMenuItem_Click" Header="Registrar Pedido"/>
+                </MenuItem>
+               <MenuItem Header="Consultas">
+                    <MenuItem x:Name="cPedidosMenuItem" Click="cPedidosMenuItem_Click" Header="Consultar Pedido"/>
+                </MenuItem>
 
                
 
                 <MenuItem Header="Ayuda">
-                
+                    <Menu/>
                 </MenuItem>
-               <Menu/>
-                </MenuItem>
-
             </Menu>
-            
         </StackPanel>
     </Grid>
 </Window>

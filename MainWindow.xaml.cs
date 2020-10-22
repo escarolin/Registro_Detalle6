@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Registro_Detalle6.UI.Registros;
-
+using Registro_Detalle6.UI.Consultas;
 namespace Registro_Detalle6
 {
     /// <summary>
@@ -25,16 +25,17 @@ namespace Registro_Detalle6
         {
             InitializeComponent();
         }
-        private void rSuplidoresButton_Click(object sender, RoutedEventArgs e)
+        private void rPedidosMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            rSuplidores rSuplidores = new rSuplidores();
-            rSuplidores.Show();
+            rPedidos rPedidos = new rPedidos();
+            rPedidos.Show();
+        }
+         private void cPedidosMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            cPedidos cPedidos = new cPedidos();
+            cPedidos.Show();
+        }
 
-        }
-        private void rProductosButton_Click(object sender, RoutedEventArgs e)
-        {
-            rProductos rProductos = new rProductos();
-            rProductos.Show();
-        }
     }
+
 }

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 C:\Users\Lenovo\source\repos\Registro_Detalle6\App.xaml
-4-481874223
-6715807111
-18-464636508
-216-1074894134
-MainWindow.xaml;UI\Registros\rOrdenes.xaml;UI\Registros\rProductos.xaml;UI\Registros\rSuplidores.xaml;
+3-132057155
+6-1762263453
+17-98906533
+216-2028196351
+MainWindow.xaml;UI\Consultas\cPedidos.xaml;UI\Registros\rPedidos.xaml;
 
 False
 
