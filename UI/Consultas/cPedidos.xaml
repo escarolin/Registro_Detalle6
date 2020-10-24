@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registro_Detalle6.UI.Consultas"
         mc:Ignorable="d"
-        Title="cPedidos"    Height="460" Width="640" WindowStartupLocation="CenterScreen">
+        Title="Consultar Pedidos"    Height="460" Width="640" WindowStartupLocation="CenterScreen"  Icon="/Imagenes/cons.png">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="0,5,0,0" HorizontalAlignment="Center">
 

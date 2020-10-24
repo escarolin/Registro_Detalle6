@@ -9,7 +9,7 @@ using Registro_Detalle6.DAL;
 namespace Registro_Detalle6.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20201022054118_Inicial")]
+    [Migration("20201024054136_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,8 @@ namespace Registro_Detalle6.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Monto")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("SuplidorId")
                         .HasColumnType("INTEGER");
@@ -47,7 +47,7 @@ namespace Registro_Detalle6.Migrations
                     b.Property<decimal>("Cantidad")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Monto")
+                    b.Property<decimal>("Costo")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OrdenId")
@@ -108,6 +108,20 @@ namespace Registro_Detalle6.Migrations
                             Costop = 45.0,
                             Descripcion = "Leche",
                             Inventario = 30.0
+                        },
+                        new
+                        {
+                            ProductoId = 4,
+                            Costop = 500.0,
+                            Descripcion = "Pizza",
+                            Inventario = 1.0
+                        },
+                        new
+                        {
+                            ProductoId = 5,
+                            Costop = 200.0,
+                            Descripcion = "Helado",
+                            Inventario = 2.0
                         });
                 });
 
@@ -128,7 +142,7 @@ namespace Registro_Detalle6.Migrations
                         new
                         {
                             SuplidorId = 1,
-                            Nombres = "PorVnir"
+                            Nombres = "Por Venir"
                         },
                         new
                         {
@@ -139,6 +153,16 @@ namespace Registro_Detalle6.Migrations
                         {
                             SuplidorId = 3,
                             Nombres = "Nestle"
+                        },
+                        new
+                        {
+                            SuplidorId = 4,
+                            Nombres = "Pizza Hut"
+                        },
+                        new
+                        {
+                            SuplidorId = 5,
+                            Nombres = "Helados Bon"
                         });
                 });
 

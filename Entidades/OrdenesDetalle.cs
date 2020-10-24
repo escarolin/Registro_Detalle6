@@ -9,7 +9,7 @@ namespace Registro_Detalle6.Entidades{
         public int OrdenId { get; set; }
         public int ProductoId { get; set; }
         public decimal Cantidad { get; set; }
-        public decimal Monto { get; set; }
+         public decimal Costo { get; set; }
         public int SuplidorId { get; set; }
         
        [ForeignKey("ProductoId")]

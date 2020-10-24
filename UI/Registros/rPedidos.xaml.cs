@@ -14,12 +14,11 @@ using Registro_Detalle6.Entidades;
 
 namespace Registro_Detalle6.UI.Registros
 {
-    /// <summary>
-    /// Interaction logic for rPedidos.xaml
-    /// </summary>
+   
     public partial class rPedidos : Window
     {
         private Ordenes ordenes = new Ordenes();
+        
         public rPedidos()
         {
             InitializeComponent();
@@ -52,12 +51,22 @@ namespace Registro_Detalle6.UI.Registros
         private bool Validar()
         {
             bool Validado = true;
-            if (OrdenIdTextbox.Text.Length == 0)
+           
+            if (SuplidorIdComboBox.Text.Length == 0)
             {
                 Validado = false;
-                MessageBox.Show("Transaccion Errada", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Campos vacios  ,Por favor llenarlo y continuar", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
+           /*if (ProductoIdComboBox.Text.Length == 0)
+            {
+                Validado = false;
+                MessageBox.Show("El campo Producto Id esta vacio, Por favor llenarlo y continuar", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (CantidadTextBox.Text.Length == 0)
+            {
+                Validado = false;
+                MessageBox.Show("El campo Cantidad  esta vacio, Por favor llenarlo y continuar", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }*/
             return Validado;
         }
         //—————————————————————————————————————————————————————[ BUSCAR ]—————————————————————————————————————————————————————
@@ -80,15 +89,23 @@ namespace Registro_Detalle6.UI.Registros
         }
         //—————————————————————————————————————————————————————[ AGREGAR FILA ]—————————————————————————————————————————————————————
         private void AgregarFilaButton_Click(object sender, RoutedEventArgs e)
+
         {
+           if (SuplidorIdComboBox.Text == string.Empty)
+            {
+                MessageBox.Show($"El campo Suplidor Id esta vacio.\n\nSeleccione un Suplidor.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SuplidorIdComboBox.IsDropDownOpen = true;
+                return;
+            }
+            Productos producto = (Productos)ProductoIdComboBox.SelectedItem;
             var filaDetalle = new OrdenesDetalle
             {
                 OrdenId = this.ordenes.OrdenId,
                 ProductoId = Convert.ToInt32(ProductoIdComboBox.SelectedValue.ToString()),
-                Producto = (Productos)ProductoIdComboBox.SelectedItem,
+                Producto = producto,
                 Cantidad = Convert.ToInt32(CantidadTextBox.Text)
             };
-
+              ordenes.Monto = producto.Costop * int.Parse(CantidadTextBox.Text);
             this.ordenes.Detalle.Add(filaDetalle);
             Cargar();
 
@@ -103,8 +120,10 @@ namespace Registro_Detalle6.UI.Registros
             {
                 if (DetalleDataGrid.Items.Count >= 1 && DetalleDataGrid.SelectedIndex <= DetalleDataGrid.Items.Count - 1)
                 {
+                    var detalle = (OrdenesDetalle)DetalleDataGrid.SelectedItem;
+                    
+                    ordenes.Monto = ordenes.Monto - (detalle.Producto.Costop * (double)detalle.Cantidad);
                     ordenes.Detalle.RemoveAt(DetalleDataGrid.SelectedIndex);
-                   // ordenes.Total -= Convert.ToDouble(TotalMorasTextBox.Text.ToString());
                     Cargar();
                 }
             }
@@ -129,10 +148,10 @@ namespace Registro_Detalle6.UI.Registros
                 if (paso)
                 {
                     Limpiar();
-                    MessageBox.Show("Transaccion Exitosa", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("El Registro a sido guargado con  Exito", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
-                    MessageBox.Show("Transaccion Errada", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("NO se pudo guardar el Registro ", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         //—————————————————————————————————————————————————————[ ELIMINAR ]—————————————————————————————————————————————————————
@@ -149,6 +168,13 @@ namespace Registro_Detalle6.UI.Registros
             }
         }
 
+        /*public double calcular()
+        {
+            double monto;
 
+
+
+            return monto;
+        }*/
     }
 }

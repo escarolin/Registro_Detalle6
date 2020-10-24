@@ -15,7 +15,7 @@ namespace Registro_Detalle6.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Fecha = table.Column<DateTime>(nullable: false),
                     SuplidorId = table.Column<int>(nullable: false),
-                    Monto = table.Column<decimal>(nullable: false)
+                    Monto = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,7 +59,7 @@ namespace Registro_Detalle6.Migrations
                     OrdenId = table.Column<int>(nullable: false),
                     ProductoId = table.Column<int>(nullable: false),
                     Cantidad = table.Column<decimal>(nullable: false),
-                    Monto = table.Column<decimal>(nullable: false),
+                    Costo = table.Column<decimal>(nullable: false),
                     SuplidorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -95,9 +95,19 @@ namespace Registro_Detalle6.Migrations
                 values: new object[] { 3, 45.0, "Leche", 30.0 });
 
             migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costop", "Descripcion", "Inventario" },
+                values: new object[] { 4, 500.0, "Pizza", 1.0 });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costop", "Descripcion", "Inventario" },
+                values: new object[] { 5, 200.0, "Helado", 2.0 });
+
+            migrationBuilder.InsertData(
                 table: "Suplidores",
                 columns: new[] { "SuplidorId", "Nombres" },
-                values: new object[] { 1, "PorVnir" });
+                values: new object[] { 1, "Por Venir" });
 
             migrationBuilder.InsertData(
                 table: "Suplidores",
@@ -108,6 +118,16 @@ namespace Registro_Detalle6.Migrations
                 table: "Suplidores",
                 columns: new[] { "SuplidorId", "Nombres" },
                 values: new object[] { 3, "Nestle" });
+
+            migrationBuilder.InsertData(
+                table: "Suplidores",
+                columns: new[] { "SuplidorId", "Nombres" },
+                values: new object[] { 4, "Pizza Hut" });
+
+            migrationBuilder.InsertData(
+                table: "Suplidores",
+                columns: new[] { "SuplidorId", "Nombres" },
+                values: new object[] { 5, "Helados Bon" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrdenesDetalle_OrdenId",

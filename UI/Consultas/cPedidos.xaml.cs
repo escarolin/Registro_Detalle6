@@ -14,9 +14,7 @@ using Registro_Detalle6.Entidades;
 
 namespace Registro_Detalle6.UI.Consultas
 {
-    /// <summary>
-    /// Interaction logic for cPedidos.xaml
-    /// </summary>
+  
     public partial class cPedidos : Window
     {
         public cPedidos()

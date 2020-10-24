@@ -12,7 +12,7 @@ namespace Registro_Detalle6.Entidades{
 
        public int SuplidorId { get; set; }
 
-       public decimal Monto { get; set; }
+       public double Monto { get; set; }
 
        [ForeignKey("OrdenId")]
         public virtual List<OrdenesDetalle> Detalle { get; set; } = new List<OrdenesDetalle>();
