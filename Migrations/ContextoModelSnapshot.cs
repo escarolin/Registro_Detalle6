@@ -164,6 +164,45 @@ namespace Registro_Detalle6.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Registro_Detalle6.Entidades.Ventas", b =>
+                {
+                    b.Property<int>("VentaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Monto")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("VentaId");
+
+                    b.ToTable("Ventas");
+                });
+
+            modelBuilder.Entity("Registro_Detalle6.Entidades.Ventas_Detalle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Precio")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Servicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("Ventas_Detalle");
+                });
+
             modelBuilder.Entity("Registro_Detalle6.Entidades.OrdenesDetalle", b =>
                 {
                     b.HasOne("Registro_Detalle6.Entidades.Ordenes", null)
@@ -175,6 +214,15 @@ namespace Registro_Detalle6.Migrations
                     b.HasOne("Registro_Detalle6.Entidades.Productos", "Producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Registro_Detalle6.Entidades.Ventas_Detalle", b =>
+                {
+                    b.HasOne("Registro_Detalle6.Entidades.Ventas", null)
+                        .WithMany("Detalle")
+                        .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -51,6 +51,20 @@ namespace Registro_Detalle6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ventas",
+                columns: table => new
+                {
+                    VentaId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Fecha = table.Column<DateTime>(nullable: false),
+                    Monto = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ventas", x => x.VentaId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrdenesDetalle",
                 columns: table => new
                 {
@@ -76,6 +90,27 @@ namespace Registro_Detalle6.Migrations
                         column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "ProductoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ventas_Detalle",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    VentaId = table.Column<int>(nullable: false),
+                    Servicio = table.Column<string>(nullable: true),
+                    Precio = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ventas_Detalle", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ventas_Detalle_Ventas_VentaId",
+                        column: x => x.VentaId,
+                        principalTable: "Ventas",
+                        principalColumn: "VentaId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -138,6 +173,11 @@ namespace Registro_Detalle6.Migrations
                 name: "IX_OrdenesDetalle_ProductoId",
                 table: "OrdenesDetalle",
                 column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ventas_Detalle_VentaId",
+                table: "Ventas_Detalle",
+                column: "VentaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -149,10 +189,16 @@ namespace Registro_Detalle6.Migrations
                 name: "Suplidores");
 
             migrationBuilder.DropTable(
+                name: "Ventas_Detalle");
+
+            migrationBuilder.DropTable(
                 name: "Ordenes");
 
             migrationBuilder.DropTable(
                 name: "Productos");
+
+            migrationBuilder.DropTable(
+                name: "Ventas");
         }
     }
 }

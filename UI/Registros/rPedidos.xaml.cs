@@ -105,7 +105,7 @@ namespace Registro_Detalle6.UI.Registros
                 Producto = producto,
                 Cantidad = Convert.ToInt32(CantidadTextBox.Text)
             };
-              ordenes.Monto = producto.Costop * int.Parse(CantidadTextBox.Text);
+              ordenes.Monto += producto.Costop * int.Parse(CantidadTextBox.Text);
             this.ordenes.Detalle.Add(filaDetalle);
             Cargar();
 
